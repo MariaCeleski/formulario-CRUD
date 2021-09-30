@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+</head>
+<style>
+
+body{
+    font-family: sans-serif;
+    background: linear-gradient(to bottom, #cce6e2, #40d6cf) ;  
+    padding-top: 300px;
+}
+
+h1{
+    text-align: center;
+    text-decoration-line: underline;
+    background:linear-gradient(to bottom, #d2e3e4, #aed5dc) ;
+    width: 700px;
+    height: 40px;
+    font-size: 25px;
+    box-shadow: 0 10px 15px rgba(0,0,0,.8);
+    border-radius: 5px;  
+    font-variant:small-caps;
+    position: fixed;
+    top: 0px;
+    margin-left: 25%;
+    margin-right: 25%;
+   
+  }
+
+#divSaida{
+    background:linear-gradient(to top, #e2d4d4, #12e9e5 );
+    background-size: 100%;
+    background-position: center;
+    font-size: 20px; 
+    font-family: lucida-sanz;
+    color: rgb(34, 20, 20);    
+    font-variant: small-caps;  
+    margin-top: 65px;     
+       
+            
+}  
+ 
+#body{
+    
+    background-color: rgba(21, 87, 92, 0.494);
+    background-size: 100%;
+    background-position: center;
+    color: #111111;
+    padding: 40px 60px 40px 40px;
+    margin: 20px auto;
+    display: inline-block;
+    text-align: left;    
+    font-size: 20px;    
+    border-radius: 10px;
+    background:linear-gradient(to top, #0b1f1f, #12e9e5);
+    position: fixed;
+    top: 45px;        
+}
+
+#body :hover{
+
+    background-color: rgb(172, 221, 221);
+    border-radius: 10px;
+}
+
+.button1{
+    font-size: 12px;
+    width: 170px;
+    height: 30px;
+    margin-top: 0px; 
+    background-color: rgb(74, 100, 102);
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(0,0,0,.8);
+    text-shadow: 0.5px 1px 1px rgb(101, 94, 94,0.5);
+    cursor: pointer;
+     
+}
+.button1:hover{
+    text-decoration: underline;
+    color: #42211b;
+    font-variant:small-caps;    
+}
+
+
+</style>
+
+<body>
+    <h1>Cadastramento de pessoas</h1>
+    <form action="#" method="POST">
+        <fieldset div id="body">
+            <label><strong>Nome</strong></label>
+            <input id="inpNome" type="text" name="inpNome" placeholder="Digite seu nome aqui" value="" size="50px"> <br><br>
+            <label><strong>Sobrenome</strong></label>
+            <input id="inpSobrenome" type="text" name="inpSobrenome" placeholder="Digite seu sobrenome aqui"value="" size="50px" > <br><br>
+            <label><strong>Idade</strong></label>
+            <input id="inpIdade" type="text" name="inpIdade" placeholder="Digite sua idade aqui" value="" size="50px"><br><br>
+            <label><strong>CPF</strong></label>
+            <input id="inpCpf" type="text" name="inpCpf" placeholder="Digite seu CPF aqui" value="" size="50px"> <br><br>
+            <button class="button1" type="button" onclick="cadastrar()">CADASTRAR DADOS</button>
+            <button class="button1" type="button" onclick="replicar()">REPLICAR DADOS</button>
+            <button class="button1" type="button" onclick="pesquisarPorNome()">PESQUISAR NOME</button>
+            <button class="button1" type="button" onclick="pesquisarPorSobrenome()">PESQUISAR SOBRENOME</button>
+            <button class="button1" type="button" onclick="pesquisarPorIdade()">PESQUISAR IDADE</button>
+            <button class="button1" type="button" onclick="editarRegistro()">EDITAR DADOS</button>
+            <button class="button1" type="button" onclick="deletarRegistro()">DELETAR DADOS</button>
+        </fieldset>        
+    </form>
+
+    <br>
+
+        <form action="">
+        <fieldset>
+            <div id="divSaida"><strong><i>Registros:</i></strong></div>
+        </fieldset>
+    </form>
+
+    <script>
+
+        // variáveis principais
+        var nome = []
+        var snome = []
+        var idade = []
+        var nomes = []
+        var cpf = []
+        var mira = -1
+       
+
+        // variáveis pra facilitar a minha vida que tá precisando de facilidades
+        // atalhos para os elementos da página
+        var entNome = document.getElementById("inpNome")
+        var entSobrenome = document.getElementById("inpSobrenome")
+        var entIdade = document.getElementById("inpIdade")
+        var entCpf = document.getElementById("inpCpf")
+        var saida = document.getElementById("divSaida")
+
+
+
+        // funções principais
+        function cadastrar() {
+            nome[nome.length] = entNome.value
+            snome[snome.length] = entSobrenome.value
+            idade[idade.length] = entIdade.value
+            cpf[cpf.length] = entCpf.value
+
+            entNome.value = ""            
+            entSobrenome.value = ""
+            entIdade.value = ""
+            entCpf.value = ""
+
+            atualizaRegistrosNaPagina()
+                      
+        }
+
+        function replicar() {
+
+            var cadNome = ["José Ricardo", "João Augusto", "Maria Aparecida", "Jesus Gabriel", "Gustavo Junior", "Igor José", "Yuri João", "Matheus Sergio", "Rafaela Maria", "Leonardo Davincci", "Marley", "Ana", "Nicolas",
+                "Joaquim Nabuco", "Bianca Rosa", "Rosangela Ferro", "Martin Ariel", "Gabriela Paolla", "Micael Murilo", "Leticia Carla", "Josué Antonio"]
+
+            var cadSNome = ["Almeida", "Rosa", "Martins", "Jesus", "Silva", "Arantes", "Santos", "Matheus", "Souza", "Leonardo", "Almeida", "Amorim", "Moraes",
+                "Joaquim", "Blanco", "Rosa", "Martin", "Duarte", "Mira", "Leite", "Josué"]
+
+            var cadIdade = ["15", "18", "14", "36", "48", "25", "29", "32", "48", "40", "58", "63", "67",
+                "51", "55", "46", "42", "33", "29", "21"]
+
+            var cadCpf = ["469.590.448-98", "834.865.978-17", "871.097.341-96", "568.582.830-64", "172.918.368-91", "763.673.037-58", "901.217.300-00", "542.483.469-82", "636.540.427-16", "233.386.402-85","995.094.336-16", "283.863.249-37", "764.899.781-99", "597.816.511-48", "021.095.364-03", "233.814.583-61", "571.180.093-00", "365.822.585-83", "215.068.530-21", "994.540.203-07"]
+
+
+            var alteraCadastro = Math.ceil(Math.random() * 15) + 5
+            alteraCadastro += nome.length
+
+            var atributoDados
+            for (i = nome.length; i < alteraCadastro; i++) {
+                
+                atributoDados = Math.floor(Math.random() * cadNome.length)
+                nome[i] = cadNome[atributoDados]
+                
+                atributoDados = Math.floor(Math.random() * cadSNome.length)
+                snome[i] = cadSNome[atributoDados]
+                
+                atributoDados = Math.floor(Math.random() * cadIdade.length)
+                idade[i] = cadIdade[atributoDados]
+
+                atributoDados = Math.floor(Math.random() * cadCpf.length)
+                cpf[i] = cadCpf[atributoDados]
+                
+            }
+            atualizaRegistrosNaPagina()
+        }
+
+        // funções secundárias 
+        function atualizaRegistrosNaPagina() {
+            saida.innerHTML = "INFORMAÇÕES<br>"
+
+            for (i = 0; i < nome.length; i++) {
+                var nomeIdade = { nome: nome[i], snome: snome[i], idade: idade[i], cpf: cpf[i]}                
+                saida.innerHTML += "<b><br>Nome:</b>" + nome[i] + "<br>"
+                saida.innerHTML += "<b><br>Sobrenome:</b>" + snome[i] + "<br>"
+                saida.innerHTML += "<b><br>Idade:</b>" + idade[i] + "<br>"
+                saida.innerHTML += "<b><br> CPF:</b>" + cpf[i] + "<br>"
+            }
+        }
+        
+        function salvar()
+        {
+            nome[mira] = entNome.value
+            snome[mira] = entSobrenome.value
+            idade[mira] = entIdade.value
+            cpf[mira] = entCpf.value
+            mira = -1
+        }
+
+        atualizaRegistrosNaPagina()
+
+        function pesquisarPorNome()
+        {
+            var nomeProcurado = entNome.value
+            mira = nome.indexOf(nomeProcurado)
+            if(mira!= -1)
+            {
+                entNome.value = nome[mira]
+                entSobrenome.value = snome[mira]
+                entIdade.value = idade[mira]
+                entCpf.value = cpf[mira]
+            }
+            else
+            {
+                alert("Nome não encontrado")
+            }
+        }
+
+        function pesquisarPorSobrenome()
+        {
+            var snomeProcurado = entSobrenome.value
+            mira = snome.indexOf(snomeProcurado)
+            if(mira!= -1)
+            {
+                entSobrenome.value = snome[mira]
+                entNome.value = nome[mira]
+                entIdade.value = idade[mira]
+                entCpf.value = cpf[mira]
+            }
+            else
+            {
+                alert("Sobrenome não encontrado")
+            }
+        }
+
+        function pesquisarPorIdade()
+        {
+            var idadeProcurada = entIdade.value
+            mira = idade.indexOf(idadeProcurada)
+            if(mira!= -1)
+            {
+                entIdade.value = idade[mira]
+                entNome.value = nome[mira]
+                entSobrenome.value = snome[mira]
+                entCpf.value = cpf[mira]
+            }
+            else
+            {
+                alert("Idade não encontrada")
+            }
+        }
+
+        atualizaRegistrosNaPagina()
+
+        
+        function editarRegistro()
+        
+        {
+            if( entNome.value !="" &&  entSobrenome.value !="" && entIdade.value !="" && entCpf.value !="")
+            {
+                nome[mira] = entNome.value
+                snome[mira] = entSobrenome.value
+                idade[mira] = entIdade.value
+                cpf[mira] = entCpf.value
+
+                entNome.value = ""            
+                entSobrenome.value = ""
+                entIdade.value = ""
+                entCpf.value = ""
+                
+        atualizaRegistrosNaPagina()
+                alert("Edição efetuada com sucesso!")
+
+            }
+            else
+            {
+                alert("Edição não efetuada")
+            }
+        }
+      
+        function deletarRegistro()
+        
+        {  
+            var del = Number(prompt('Digite a idade da pessoa (pesquisada) à ser deletada'))
+
+            if(!confirm('Você tem certeza que deseja deletar esses dados, aperte OK.')) return false
+
+            for (i = 0; i < nome.length; i++) {
+            
+               {
+                    nome.splice(mira, 1)
+                    snome.splice(mira, 1)
+                    idade.splice(mira, 1)
+                    cpf.splice(mira, 1)
+
+                    entNome.value = ""            
+                    entSobrenome.value = ""
+                    entIdade.value = ""
+                    entCpf.value = ""
+                }
+            }
+            atualizaRegistrosNaPagina()
+
+            alert("Dados excluídos com sucesso! Aperte no OK")
+            
+        }
+        
+    </script>
+</body>
+
+
+</html>
